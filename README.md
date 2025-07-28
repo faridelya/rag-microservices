@@ -47,5 +47,5 @@
 └── wait-for-it.sh
 ```
 
-### *Run Docker Compose*
+### **Run Docker Compose**
 `sudo docker compose up --build -d
