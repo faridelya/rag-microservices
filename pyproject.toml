@@ -1,0 +1,23 @@
+[project]
+name = "rag-microservices"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.16.4",
+    "azure-identity>=1.23.1",
+    "azure-search-documents>=11.5.3",
+    "cachetools>=6.1.0",
+    "fastapi[standard]>=0.116.1",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.27",
+    "langchain-openai>=0.3.28",
+    "passlib>=1.7.4",
+    "pymssql>=2.3.7",
+    "python-dotenv>=1.1.1",
+    "python-jose>=3.5.0",
+    "redis>=6.2.0",
+    "sqlalchemy>=2.0.41",
+    "uvicorn>=0.35.0",
+]

@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uv-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      Redis_URL: ${Redis_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      LANGSMITH_KEY: ${LANGSMITH_KEY}
+      OPENAI_API_VERSION: ${OPENAI_API_VERSION}
+      EMBEDD_MODEL: ${EMBEDD_MODEL}
+      GPT_MODEL: ${GPT_MODEL}
+      VECTOR_STORE_ADDRESS: ${VECTOR_STORE_ADDRESS}
+      VECTOR_STORE_KEY: ${VECTOR_STORE_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
+      REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS}
+    depends_on:
+      - mssql
+      - redis
+    networks:
+      - app-net
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-server
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: "yourStrong)_1_(Password"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - app-net
+
+  redis:
+    image: redis:7
+    container_name: redis-server
+    ports:
+      - "63799:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-net
+
+  dbadmin:
+    image: adminer
+    container_name: dbadmin
+    ports:
+      - "5050:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mssql-server
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  mssql_data:
