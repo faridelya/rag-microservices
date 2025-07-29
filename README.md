@@ -129,15 +129,21 @@ REFRESH_TOKEN_EXPIRE_DAYS=7
 - **Python** – Core programming language
 - **FastAPI** – Backend web framework
 - **Uvicorn** – ASGI server for running FastAPI
+- **SQLAlchemy** – ORM for database models and interactions
+- **Alembic** – Database migrations for SQLAlchemy models
 - **LangChain** – Framework for building LLM-based applications
-- **LangChain OpenAI** – Integration with OpenAI APIs for embeddings and LLMs
-- **LangSmith** – Used for tracing and observability of LangChain apps
-- **LangChain Unstructured** – Used for parsing and chunking unstructured documents (PDFs, Word, etc.)
-- **Azure AI Search** – Vector database used for semantic search and retrieval
-- **AzureSearch (LangChain)** – Integration for index creation and vector storage within LangChain
-- **Redis (Docker)** – In-memory data store for caching and session storage
-- **MSSQL (Docker)** – SQL Server database for storing chat history and metadata
-- **Application Docker** – Containerization of services and applications
-- **Docker Compose** – Orchestrates multi-container environment (FastAPI, MSSQL, Redis, etc.)
-- **OpenAI API Key** – Provides access to OpenAI models for answering and embedding
-- **uv** – Lightweight Python virtual environment and dependency manager
+- **LangChain OpenAI** – Integration with OpenAI APIs for embeddings and completions
+- **LangChain Unstructured** – For parsing and chunking unstructured documents (e.g. PDFs, Word)
+- **LangChain Expression Language (LCEL)** – Used to build modular RAG pipelines
+- **LangSmith** – Tracing, observability, and debugging for LangChain apps
+- **SQLChatMessageHistory** – Used to persist chat history in MSSQL
+- **Azure AI Search** – Vector database for semantic document search
+- **AzureSearch (LangChain)** – LangChain wrapper for index creation and search in Azure AI Search
+- **Redis (Docker)** – In-memory store for caching and temporary storage
+- **MSSQL (Docker)** – SQL Server for chat/message storage
+- **Docker** – Containerization of all services
+- **Docker Compose** – Orchestration of multi-container application
+- **OpenAI API Key** – Access to OpenAI’s GPT and embedding models
+- **python-jose** – JWT authentication and token verification
+- **uv** – Lightweight Python dependency and virtual environment manager
+
