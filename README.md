@@ -43,7 +43,7 @@ docker compose down
 ```
 ## URL
 - FastAPI `http://localhost:8000/docs`
-- Adminer UI `http://localhost:3000`
+- SQLPAD UI `http://localhost:3000`
 
 ## Adminer Database Configuration
 To log into SQLPAD at http://localhost:3000, first use `admin` as user and password for SQLPAD dashboard then connect to your mssql-server container to fill in the connection form as follows:
