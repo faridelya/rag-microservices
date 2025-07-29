@@ -6,6 +6,7 @@ from db.db_connection import get_db
 from core.api_key_auth import validate_api_key
 from uuid import uuid4
 from core.jwt_utils import get_current_user
+from core.config import Settings
 import secrets
 import redis
 from uuid import UUID
@@ -13,7 +14,8 @@ from uuid import UUID
 router = APIRouter()
 
 
-r = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
+redis_url = Settings().Redis_URL
+r = redis.from_url(redis_url, decode_responses=True)
 
 
 @router.post("/create-apikey")
