@@ -35,10 +35,10 @@ This is a FastAPI-based backend that implements a **Retrieval-Augmented Generati
 
 ```bash
 # Build images and start containers in background
-docker compose up --build -d
+sudo docker compose up --build -d
 
 # Stop and remove containers
-docker compose down
+sudo docker compose down
 
 ```
 ## URL
