@@ -22,7 +22,7 @@ This is a FastAPI-based backend that implements a **Retrieval-Augmented Generati
 
 ### 🔑 API Key Management
 - Create API key per registered user
-- **Rate limit** enforced per API key
+- **Rate limit** enforced per API key associated to type of tier
 - **Delete** API key
 - **Validate** API key on API requests
 
@@ -51,7 +51,7 @@ To log into Adminer at http://localhost:5050, fill in the connection form as fol
 | System    | Microsoft SQL Server           |
 | Server    | mssql-server (container name)  |
 | Username  | sa                             |
-| Password  | yourStrong)_1_(Password        |
+| Password  | yourStrong\)\_1\_\(Password      |
 | Database  | master                         |
 
 
