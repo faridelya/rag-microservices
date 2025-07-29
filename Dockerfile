@@ -10,8 +10,8 @@ WORKDIR /app
 COPY . /app
 
 # Sync dependencies from pyproject.toml + uv.lock
-RUN uv sync --frozen   
-#--no-cache
+RUN uv sync --frozen --no-cache
+
 
 # Copy wait script to wait for MSSQL/Redis
 COPY ./wait-for-it.sh /wait-for-it.sh
