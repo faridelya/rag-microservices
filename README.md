@@ -8,8 +8,9 @@ This is a FastAPI-based backend that implements a **Retrieval-Augmented Generati
 
 ### 🔍 RAG Chatbot (Azure AI Search)
 - Semantic search using **Azure AI Search**
-- Maintains **chat history per user** and session
+- Maintains **chat history per user** and session (Chat ID)
 - **Like / Dislike** feedback for chat responses
+- Favourite chat
 - Rename chat titles
 - Disable chats
 - Retrieve:
