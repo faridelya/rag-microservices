@@ -18,8 +18,10 @@ COPY ./wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
 # Run migrations before starting FastAPI app
-CMD ["/wait-for-it.sh", "mssql-server:1433", "--", "bash", "-c", "\
+CMD ["/bin/bash", "-c", "\
+    /wait-for-it.sh mssql-server:1433 --timeout=60 --strict -- \
+    /wait-for-it.sh redis-server:6379 --timeout=60 --strict -- \
     uv venv && \
     . .venv/bin/activate && \
     alembic upgrade head && \
-    .venv/bin/fastapi run app/main.py --port 80 --host 0.0.0.0"]
+    .venv/bin/fastapi run main.py --port 8000 --host 0.0.0.0"]
