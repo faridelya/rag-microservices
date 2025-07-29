@@ -51,7 +51,7 @@ class ChatBase(BaseModel):
     last_message_at: Optional[datetime] = None
     is_active: Optional[bool] = True
     favourite: Optional[bool] = False
-    call_type: str
+    index_name: str
     chat_type: str
 
 

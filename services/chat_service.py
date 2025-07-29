@@ -153,7 +153,6 @@ async def generate_customer_response(
     message: str,
     message_time: str,
     db: Session,
-    customer_id: str
 ): #-> AsyncGenerator[str, None]:
 
     try:

@@ -15,6 +15,7 @@ from schemas.chat_schemas import (
     Chat,
     Message,
     MessageCreate,
+
     ChatWithMessages,
     User_Message
 )
@@ -32,6 +33,8 @@ import logging
 
 
 router = APIRouter()
+vector_store_instance = get_azure_search_client("nbsknowledgeindex")
+
 
 os.environ["LANGSMITH_TRACING"] = "true"
 os.environ["LANGSMITH_PROJECT"] =   "NBS Task"
@@ -68,14 +71,15 @@ def get_chat(
 
 
 
-@router.post("/chat", response_model=Chat)
+@router.post("/chat", response_model=Chat, description="Create new Chat and return chat id for session",)
 def create_chat(
     chat: ChatCreate,
     current_user: dict = Depends(validate_api_key),
     db: Session = Depends(get_db),
 ):
     logging.info("get chat")
-    user_email = chat.email
+    
+    user_email = current_user['email']
 
     new_chat = models.Chat(
         user_email=user_email,
@@ -84,7 +88,7 @@ def create_chat(
         last_message_at=chat.last_message_at,
         is_active=chat.is_active,
         favourite=chat.favourite,
-        index_name=chat.call_type,
+        index_name=chat.index_name,
         chat_type=chat.chat_type,
     )
     db.add(new_chat)
@@ -93,7 +97,8 @@ def create_chat(
     return new_chat
 
 
-@router.get("/chat/{chat_id}", response_model=list[Message])  
+@router.get("/chat/{chat_id}", response_model=list[Message],
+             description="Returns conversation history by using the provided session (chat) ID.",)  
 def geting_chat(
     chat_id: UUID4,
     skip: int = 0,
@@ -123,9 +128,9 @@ def geting_chat(
     return chat_sessions
 
 
-@router.post("/chat/{chat_id}/messages")
+@router.post("/chat/{chat_id}/messages",  description="Chat based on Rag method with documents",)
 async def chating_with_doc(
-    message: User_Message,
+    message: MessageCreate,
     chat_id: UUID4,
     current_user: dict = Depends(validate_api_key),
     db: Session = Depends(get_db),
@@ -133,8 +138,8 @@ async def chating_with_doc(
     
     try:
         # email = current_user["email"]
-        email = message.email
-
+        email = current_user['email']
+        
 
         chat_to_update = (
             db.query(
@@ -149,24 +154,22 @@ async def chating_with_doc(
             )
         chat_history, limit_histmemory = get_history(str(chat_id))
         if chat_to_update and chat_to_update.first_question_asked:
-            chat_to_update.title = message.user_question[:75]
+            chat_to_update.title = message.question[:75]
             chat_to_update.first_question_asked = False
             db.commit()
-        res = llm.invoke(message.user_question)
-        return res.content
-        # # vector_store_instance = get_azure_search_client(message.index_name)
-        # response = await generate_customer_response(
-        #     sqlchat_history=chat_history,
-        #     limit_histmemory=limit_histmemory,
-        #     prompt=message.user_question,
-        #     retriever=vector_store_instance,
-        #     chat_id=chat_id,
-        #     message=message.user_question,
-        #     message_time=message.message_time,
-        #     db=db,
-        #     customer_id=message.indx_filter_id
-        # )
-        # return response
+        # res = llm.invoke(message.question)
+        # return res.content
+        response = await generate_customer_response(
+            sqlchat_history=chat_history,
+            limit_histmemory=limit_histmemory,
+            prompt=message.question,
+            retriever=vector_store_instance,
+            chat_id=chat_id,
+            message=message.question,
+            message_time=message.message_time,
+            db=db
+        )
+        return response
 
     except Exception as e:
         raise HTTPException(status_code=500,
