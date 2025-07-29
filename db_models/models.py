@@ -8,7 +8,8 @@ from sqlalchemy import (
     ForeignKey,
     DateTime,
     Float,
-    UniqueConstraint
+    UniqueConstraint,
+    UnicodeText
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Unicode
@@ -73,7 +74,7 @@ class Chat(Base):
     user_email = Column(String(length=255), ForeignKey("users.email"))
     created_at = Column(DateTime, default=datetime.now())
     last_message_at = Column(DateTime, nullable=True)
-    is_active = Column(String, default=True)
+    is_active = Column(Boolean, default=True, nullable=False)
     favourite = Column(Boolean, default=False)
     first_question_asked = Column(Boolean, default=True)
     index_name = Column(String(length=255))
@@ -97,7 +98,7 @@ class Messages(Base):
     )
     chat_id = Column(UNIQUEIDENTIFIER, ForeignKey("chat.chat_id"))
     question = Column(Unicode(1000), nullable=False)
-    answer = Column(Unicode(1000), nullable=False)  # Storing answer as JSON
+    answer = Column(UnicodeText, nullable=False)
     message_time = Column(DateTime, default=datetime.now())
     chat = relationship("Chat", back_populates="messages")
 
