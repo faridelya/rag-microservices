@@ -1,6 +1,6 @@
 # 🧠 RAG-based Chatbot with User & API Key Management
 
-This is a FastAPI-based backend that implements a **Retrieval-Augmented Generation (RAG)** chatbot using **Azure AI Search** as the vector database. It includes user authentication, API key management, chat history tracking, and MSSQL visualization through Adminer.
+This is a FastAPI-based backend that implements a **Retrieval-Augmented Generation (RAG)** chatbot using **Azure AI Search** as the vector database. It includes user authentication, API key management, chat history tracking, and MSSQL visualization through SQLPAD.
 
 ---
 
@@ -42,10 +42,10 @@ docker compose down
 ```
 ## URL
 - FastAPI `http://localhost:8000/docs`
-- Adminer UI `http://localhost:5050`
+- Adminer UI `http://localhost:3000`
 
 ## Adminer Database Configuration
-To log into Adminer at http://localhost:5050, fill in the connection form as follows:
+To log into SQLPAD at http://localhost:3000, first use `admin` as user and password for SQLPAD dashboard then connect to your mssql-server container to fill in the connection form as follows:
 | Field     | Value                          |
 |-----------|--------------------------------|
 | System    | Microsoft SQL Server           |
