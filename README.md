@@ -63,13 +63,13 @@ Redis_URL="redis://redis-server:6379/0"
 DATABASE_URL="mssql+pymssql://sa:yourStrong%29_1_%28Password@mssql:1433/master"
 OPENAI_API_KEY=your_openai_api_key
 LANGSMITH_KEY=your_langsmith_key
-OPENAI_API_VERSION=2023-07-01-preview
+OPENAI_API_VERSION="2023-05-15"
 EMBEDD_MODEL=text-embedding-ada-002
-GPT_MODEL=gpt-4
+GPT_MODEL="gpt-4o-mini-2024-07-18"
 VECTOR_STORE_ADDRESS=Azure Ai search index url
 VECTOR_STORE_KEY=your_azure_ai_search_key
-JWT_SECRET_KEY=super-secret
-ACCESS_TOKEN_EXPIRE_MINUTES=30
+JWT_SECRET_KEY=super-secret-add any thing 
+ACCESS_TOKEN_EXPIRE_MINUTES=5
 REFRESH_TOKEN_EXPIRE_DAYS=7
 ```
 
@@ -124,5 +124,20 @@ REFRESH_TOKEN_EXPIRE_DAYS=7
 └── wait-for-it.sh
 ```
 
-### **Run Docker Compose**
-`sudo docker compose up --build -d`
+## 🛠️ Tech Stack
+
+- **Python** – Core programming language
+- **FastAPI** – Backend web framework
+- **Uvicorn** – ASGI server for running FastAPI
+- **LangChain** – Framework for building LLM-based applications
+- **LangChain OpenAI** – Integration with OpenAI APIs for embeddings and LLMs
+- **LangSmith** – Used for tracing and observability of LangChain apps
+- **LangChain Unstructured** – Used for parsing and chunking unstructured documents (PDFs, Word, etc.)
+- **Azure AI Search** – Vector database used for semantic search and retrieval
+- **AzureSearch (LangChain)** – Integration for index creation and vector storage within LangChain
+- **Redis (Docker)** – In-memory data store for caching and session storage
+- **MSSQL (Docker)** – SQL Server database for storing chat history and metadata
+- **Application Docker** – Containerization of services and applications
+- **Docker Compose** – Orchestrates multi-container environment (FastAPI, MSSQL, Redis, etc.)
+- **OpenAI API Key** – Provides access to OpenAI models for answering and embedding
+- **uv** – Lightweight Python virtual environment and dependency manager
